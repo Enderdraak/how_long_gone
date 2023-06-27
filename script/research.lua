@@ -1,12 +1,13 @@
 local script_data = {
-    players = {[1]=-5253834},
+    players = {},
 }
 
 local on_player_joined = function(event)
 
     local player = event.player_index
     if script_data.players[player] then
-        local time_gone = script_data.players[player] - event.tick
+        local time_gone = event.tick - script_data.players[player]
+        local time_string = ""
 
         if time_gone >= 60 then
             local second = math.floor(time_gone/60) % 60
@@ -19,22 +20,29 @@ local on_player_joined = function(event)
 
                     if time_gone >= 5184000 then
                         local day = math.floor(time_gone/5184000)
-                        game.print({"script.player-joined-back-after", time_gone, {{"time.day", day},{"time.hour", hour},{"time.minute", minute},{"time.second", second}}})
+                        
+                        time_string = {"time.day-hour-minute-second", day, hour, minute, second}
                     else
-                        game.print({"script.player-joined-back-after", time_gone, {{"time.hour", hour},{"time.minute", minute},{"time.second", second}}})
+                        time_string = {"time.hour-minute-second", hour, minute, second}
                     end
                 else
-                    game.print({"script.player-joined-back-after", time_gone, {{"time.minute", minute},{"time.second", second}}})
+                    time_string = {"time.minute-second", minute, second}
                 end
             else
-                game.print({"script.player-joined-back-after", time_gone, {{"time.second", second}}})
+                time_string = {"time.second", second}
             end
+            game.print({"script.player-joined-back-after", game.players[player].name, time_gone, time_string})
         else
-            game.print({"script.player-joined-back-after", time_gone, ""})
+            game.print({"script.player-joined-back-only-ticks", game.players[player].name, time_gone})
         end
+    else
+        game.print({"script.welcome", game.players[player].name})
     end
 end
 
+local on_player_left = function(event)
+    script_data.players[event.player_index] = event.tick
+end
 
 local events = {
     [defines.events.on_player_joined_game] = on_player_joined,
@@ -47,7 +55,6 @@ lib.get_events = function() return events end
 
 lib.on_init = function()
   global.player_info = global.player_info or script_data
-  reset_forces()
 end
 
 lib.on_load = function()
