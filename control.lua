@@ -3,7 +3,7 @@ handler = require("script/event_handler")
 --error(serpent.block(defines.events))
 
 local libs = {
-  research = require("script/research.lua")
+  long_gone = require("script/long_gone.lua")
 }
 
 
