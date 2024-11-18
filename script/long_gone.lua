@@ -54,11 +54,11 @@ local lib = {}
 lib.get_events = function() return events end
 
 lib.on_init = function()
-  global.player_info = global.player_info or script_data
+    storage.player_info = storage.player_info or script_data
 end
 
 lib.on_load = function()
-  script_data = global.player_info or script_data
+    script_data = storage.player_info or script_data
 end
 
 lib.on_configuration_changed = function()

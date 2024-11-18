@@ -1,13 +1,13 @@
 {
   "name": "how_long_gone",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "title": "How long gone?",
   "author": "CosmicWolf",
   "contact": "",
   "homepage": "",
-  "description": "A control.lua script that will display how long a player has been gone from a multiplayer game. From the games perspective.",
+  "description": "A control.lua script that will display how long a player has been gone from a multiplayer game. From the games perspective.\nThis does not work in SP as the plyer never leaves the save to begin with.",
   "dependencies": [
-    "base >= 1.1.80"
+    "base >= 2.0.15"
   ],
-  "factorio_version": "1.1"
+  "factorio_version": "2.0"
 } 
